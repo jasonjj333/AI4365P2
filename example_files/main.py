@@ -59,15 +59,19 @@ def findLeastConstrainedValue(constraints,variableValues,variable,variableNames)
             for value in variableValues[variableIndex]:
                 indexOfVariableInArgument = arguments.index(variable)
                 if indexOfVariableInArgument == 0:
-                    if checkExpression(value, arguments[1], assignment[findVariableIndex(arguments[2], variableNames)]):
+                    if checkExpression(value, arguments[1], assignment[arguments[2]]):
                         tempNum = dict[value]
                         dict[value] = tempNum+1
                 else:
-                    if checkExpression(assignment[findVariableIndex(arguments[0], variableNames)], arguments[1], value):
+                    if checkExpression(assignment[arguments[2]], arguments[1], value):
                         tempNum = dict[value]
                         dict[value] = tempNum+1
     print(dict) 
+    #Sort dict in descending order:
+    #sorted_dict = sorted(dict.items(),key=lambda x:x[1],reverse=True)
+    #for i in sorted_dict: i[0] = key i[1] = value
 
+    #If all dict values = 0, => FAILURE
     maxCount = 0
     maxValue = 0 
     for value in variableValues[variableIndex]:
@@ -76,6 +80,9 @@ def findLeastConstrainedValue(constraints,variableValues,variable,variableNames)
             maxValue = value
     
     return maxValue
+
+
+############## Backtracking Method ##############
 
 
 
@@ -111,9 +118,9 @@ with open('ex1.var') as p:
         checker = True
         counter+=1
 
-assignment = []
+assignment = {}
 for variable in variableNames:
-    assignment.append(0)
+    assignment[variable] = 0
 
 
 
